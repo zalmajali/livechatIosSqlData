@@ -346,6 +346,7 @@ private startPolling() {
   }
   async functionReturnData(){
    const processChats = this.conversations.filter(c => c.type == 1);
+      alert(JSON.stringify(processChats))
    this.returnChatArrayAll.clear();
    this.returnChatArray = [];
     this.returnResultDataSizeAll = 0;
