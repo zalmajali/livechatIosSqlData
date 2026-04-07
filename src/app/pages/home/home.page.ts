@@ -174,10 +174,9 @@ async ngOnInit() {
       }
     }
   });
-
   this.generateDates();
-  this.dbService.getConversations().subscribe(data => {
-    console.log("Conversations from DB:", data);
+  await this.dbService.getConversations().subscribe(data => {
+    alert("sdfsdfsdf");
     this.conversations = data || [];
     this.functionReturnData();
     this.functionReturnDataQue();
@@ -187,7 +186,6 @@ async ngOnInit() {
   let showLoading = await this.storage.get('showLoading');
   if (showLoading == 0) {
     await this.storage.set('showLoading', '1');
-
     const loading = await this.loading.create({
       cssClass: 'my-custom-class',
       message: '',
@@ -196,7 +194,6 @@ async ngOnInit() {
 
     await loading.present();
   }
-  alert("test7")
 }
 
 private generateDates() {
@@ -269,9 +266,6 @@ private startPolling() {
   ngOnDestroy() {
     this.pollingSub?.unsubscribe();
   }
-
-
-
   async checkLoginDataUser(){
     this.department = await this.storage.get('department');
     this.mainUserName = await this.storage.get('mainUserName');
