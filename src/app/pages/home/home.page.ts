@@ -175,7 +175,6 @@ async ngOnInit() {
   });
   this.generateDates();
   await this.dbService.getConversations().subscribe(data => {
-    alert("sdfsdfsdf");
     this.conversations = data || [];
     this.functionReturnData();
     this.functionReturnDataQue();
@@ -207,7 +206,6 @@ private generateDates() {
   this.genaratedFullDate = `${this.year}${this.month}${this.day}${this.hour}${this.minutes}${this.seconds}`;
 }
 private startPolling() {
-   alert("test")
   let key = this.mainUserName + this.userName + this.password + "(OLH)" + this.genaratedDate;
   const md5Hash = CryptoJS.algo.MD5.create();
   md5Hash.update(key);
@@ -224,7 +222,6 @@ private startPolling() {
   this.chatService.startPolling(sendValues);
 }
   private async loadFromApi() {
-      alert("test10")
     try {
       let key = this.mainUserName+this.userName+this.password+"(OLH)"+this.genaratedDate;
       const md5Hash = CryptoJS.algo.MD5.create();
@@ -257,7 +254,6 @@ private startPolling() {
         await this.dbService.saveConversations(data);
       }
     } catch (error) {
-        alert(JSON.stringify(error)+" 1")
     } finally {
       this.isLoading = false;
     }
@@ -346,7 +342,6 @@ private startPolling() {
   }
   async functionReturnData(){
    const processChats = this.conversations.filter(c => c.type == 1);
-      alert(JSON.stringify(processChats))
    this.returnChatArrayAll.clear();
    this.returnChatArray = [];
     this.returnResultDataSizeAll = 0;
