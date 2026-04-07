@@ -74,6 +74,7 @@ async initDb() {
     const now = new Date().toISOString();
     const batch: any[] = [];
     for (const conv of processArr) {
+      alert("sdfsdfsdfsdf")
       const chatSessionId = conv?.chatSessionId || conv?.id || Date.now().toString();
       const name = conv?.name || conv?.mobile || '';
       const countMsg =
@@ -177,12 +178,15 @@ async initDb() {
       }
       if (batch.length > 0) {
         try {
+          alert(JSON.stringify(batch))
             await this.db.sqlBatch(batch);
           } catch (error) {
+            alert(JSON.stringify(error))
           }
       }
       await this.loadAllConversations();
     } catch (error) {
+      alert(JSON.stringify(error))
     }
   }
 
@@ -199,6 +203,7 @@ async initDb() {
 
       this.conversations$.next(data);
     } catch (error) {
+      alert(JSON.stringify(error))
     }
   }
 
