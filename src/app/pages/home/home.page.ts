@@ -150,53 +150,69 @@ export class HomePage implements OnInit {
       this.search = res;
     });
   }
-  async ngOnInit() {
-    await this.dbService.initDb();
-    await this.getDeviceLanguage();
-    await this.checkLoginUser();
-     alert("test1")
-    await this.checkLoginDataUser();
-     alert("test2")
+async ngOnInit() {
+
+  // ✅ مهم جدًا لـ iOS
+  await this.platform.ready();
+
+  await this.dbService.initDb();
+
+  await this.getDeviceLanguage();
+  await this.checkLoginUser();
+  await this.checkLoginDataUser();
+
   this.mainUserName = await this.storage.get('mainUserName');
   this.userName = await this.storage.get('userName');
   this.password = await this.storage.get('password');
   this.apiKey = await this.storage.get('apiKey');
   this.sessionLogin = await this.storage.get('sessionLogin');
-    await this.activaterouter.params.subscribe(async (params:any) => {
-      if(params['backUrl']!="" && params['backUrl']!=null && params['backUrl']!=undefined && params['backUrl']!=0){
-        if(params['backUrl'] == 3){
-          this.selectTypeShow=2;
-          this.selectTypeOne=0;
-          this.selectTypeTow=1;
-        }else{
-          this.selectTypeShow=1;
-          this.selectTypeOne=1;
-            this.selectTypeTow=0;
-        }
+
+  // ❌ احذف await لأنه subscribe مش Promise
+  this.activaterouter.params.subscribe((params: any) => {
+    if (params['backUrl'] != "" && params['backUrl'] != null && params['backUrl'] != undefined && params['backUrl'] != 0) {
+      if (params['backUrl'] == 3) {
+        this.selectTypeShow = 2;
+        this.selectTypeOne = 0;
+        this.selectTypeTow = 1;
+      } else {
+        this.selectTypeShow = 1;
+        this.selectTypeOne = 1;
+        this.selectTypeTow = 0;
       }
-    });
-  this.generateDates();
-  this.dbService.getConversations().subscribe(data => {
-    this.conversations = data;
-     this.functionReturnData();
-     this.functionReturnDataQue();
+    }
   });
-     alert("test4")
-   await this.loadFromApi();
-     alert("test5")
+
+  this.generateDates();
+
+  // ✅ اشتراك البيانات (بعد init + platform.ready)
+  this.dbService.getConversations().subscribe(data => {
+    console.log("Conversations from DB:", data);
+
+    this.conversations = data || [];
+
+    this.functionReturnData();
+    this.functionReturnDataQue();
+  });
+
+  // ✅ API بعد ما النظام جاهز
+  await this.loadFromApi();
+
   this.startPolling();
-     alert("test6")
-  let showLoading= await this.storage.get('showLoading');
-  if(showLoading == 0){
-    await this.storage.set('showLoading','1');
-      const loading = await this.loading.create({
+
+  // ✅ loading
+  let showLoading = await this.storage.get('showLoading');
+  if (showLoading == 0) {
+    await this.storage.set('showLoading', '1');
+
+    const loading = await this.loading.create({
       cssClass: 'my-custom-class',
       message: '',
       duration: 1500,
     });
+
     await loading.present();
   }
-  }
+}
 
 private generateDates() {
   const currentDate = new Date();
