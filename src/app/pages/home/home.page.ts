@@ -151,23 +151,16 @@ export class HomePage implements OnInit {
     });
   }
 async ngOnInit() {
-alert("test1")
-  // ✅ مهم جدًا لـ iOS
   await this.platform.ready();
-alert("test2")
   await this.dbService.initDb();
-alert("test3")
   await this.getDeviceLanguage();
   await this.checkLoginUser();
   await this.checkLoginDataUser();
-alert("test4")
   this.mainUserName = await this.storage.get('mainUserName');
   this.userName = await this.storage.get('userName');
   this.password = await this.storage.get('password');
   this.apiKey = await this.storage.get('apiKey');
   this.sessionLogin = await this.storage.get('sessionLogin');
-
-  // ❌ احذف await لأنه subscribe مش Promise
   this.activaterouter.params.subscribe((params: any) => {
     if (params['backUrl'] != "" && params['backUrl'] != null && params['backUrl'] != undefined && params['backUrl'] != 0) {
       if (params['backUrl'] == 3) {
@@ -183,23 +176,14 @@ alert("test4")
   });
 
   this.generateDates();
-alert("test5")
-  // ✅ اشتراك البيانات (بعد init + platform.ready)
   this.dbService.getConversations().subscribe(data => {
     console.log("Conversations from DB:", data);
-
     this.conversations = data || [];
-
     this.functionReturnData();
     this.functionReturnDataQue();
   });
-
-  // ✅ API بعد ما النظام جاهز
   await this.loadFromApi();
-alert("test6")
-  this.startPolling();
-
-  // ✅ loading
+  await this.startPolling();
   let showLoading = await this.storage.get('showLoading');
   if (showLoading == 0) {
     await this.storage.set('showLoading', '1');
