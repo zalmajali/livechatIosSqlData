@@ -155,7 +155,6 @@ async ngOnInit() {
   await this.dbService.initDb();
   await this.getDeviceLanguage();
   await this.checkLoginUser();
-  await this.checkLoginDataUser();
   this.mainUserName = await this.storage.get('mainUserName');
   this.userName = await this.storage.get('userName');
   this.password = await this.storage.get('password');
