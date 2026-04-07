@@ -154,7 +154,9 @@ export class HomePage implements OnInit {
     await this.dbService.initDb();
     await this.getDeviceLanguage();
     await this.checkLoginUser();
+     alert("test1")
     await this.checkLoginDataUser();
+     alert("test2")
   this.mainUserName = await this.storage.get('mainUserName');
   this.userName = await this.storage.get('userName');
   this.password = await this.storage.get('password');
@@ -179,8 +181,11 @@ export class HomePage implements OnInit {
      this.functionReturnData();
      this.functionReturnDataQue();
   });
+     alert("test4")
    await this.loadFromApi();
+     alert("test5")
   this.startPolling();
+     alert("test6")
   let showLoading= await this.storage.get('showLoading');
   if(showLoading == 0){
     await this.storage.set('showLoading','1');
@@ -204,7 +209,6 @@ private generateDates() {
   this.genaratedDate = `${this.year}${this.month}${this.day}`;
   this.genaratedFullDate = `${this.year}${this.month}${this.day}${this.hour}${this.minutes}${this.seconds}`;
 }
-
 private startPolling() {
    alert("test")
   let key = this.mainUserName + this.userName + this.password + "(OLH)" + this.genaratedDate;
