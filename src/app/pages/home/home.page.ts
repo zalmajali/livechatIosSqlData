@@ -254,6 +254,7 @@ private startPolling() {
         await this.dbService.saveConversations(data);
       }
     } catch (error) {
+        alert(JSON.stringify(error)+" 1")
     } finally {
       this.isLoading = false;
     }
