@@ -206,6 +206,7 @@ private generateDates() {
 }
 
 private startPolling() {
+   alert("test")
   let key = this.mainUserName + this.userName + this.password + "(OLH)" + this.genaratedDate;
   const md5Hash = CryptoJS.algo.MD5.create();
   md5Hash.update(key);
