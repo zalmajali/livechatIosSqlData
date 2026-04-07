@@ -151,16 +151,16 @@ export class HomePage implements OnInit {
     });
   }
 async ngOnInit() {
-
+alert("test1")
   // ✅ مهم جدًا لـ iOS
   await this.platform.ready();
-
+alert("test2")
   await this.dbService.initDb();
-
+alert("test3")
   await this.getDeviceLanguage();
   await this.checkLoginUser();
   await this.checkLoginDataUser();
-
+alert("test4")
   this.mainUserName = await this.storage.get('mainUserName');
   this.userName = await this.storage.get('userName');
   this.password = await this.storage.get('password');
@@ -183,7 +183,7 @@ async ngOnInit() {
   });
 
   this.generateDates();
-
+alert("test5")
   // ✅ اشتراك البيانات (بعد init + platform.ready)
   this.dbService.getConversations().subscribe(data => {
     console.log("Conversations from DB:", data);
@@ -196,7 +196,7 @@ async ngOnInit() {
 
   // ✅ API بعد ما النظام جاهز
   await this.loadFromApi();
-
+alert("test6")
   this.startPolling();
 
   // ✅ loading
@@ -212,6 +212,7 @@ async ngOnInit() {
 
     await loading.present();
   }
+  alert("test7")
 }
 
 private generateDates() {
@@ -243,6 +244,7 @@ private startPolling() {
   this.chatService.startPolling(sendValues);
 }
   private async loadFromApi() {
+      alert("test10")
     try {
       let key = this.mainUserName+this.userName+this.password+"(OLH)"+this.genaratedDate;
       const md5Hash = CryptoJS.algo.MD5.create();
