@@ -183,6 +183,7 @@ async ngOnInit() {
   });
   await this.loadFromApi();
   await this.startPolling();
+   await this.checkLoginDataUser();
   let showLoading = await this.storage.get('showLoading');
   if (showLoading == 0) {
     await this.storage.set('showLoading', '1');
@@ -191,7 +192,6 @@ async ngOnInit() {
       message: '',
       duration: 1500,
     });
-
     await loading.present();
   }
 }
